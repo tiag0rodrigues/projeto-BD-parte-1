@@ -7,6 +7,13 @@ Usuario = [
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
 
+@app.route('/usuarioG/<cpf>', methods=['GET'])
+def get_usuario(cpf):
+    for user in Usuario:
+        if str(user['cpf']) == cpf:
+            return make_response(jsonify(user))
+    return make_response(jsonify({'error': 'Usuário não encontrado'}))
+
 @app.route('/usuarioG', methods=['GET'])
 def get_Usuario():
     return make_response(
